@@ -1,0 +1,44 @@
+{
+  "name": "auto-hotkey-interface",
+  "version": "1.0.0",
+  "description": "Used to generate and edit ahk scripts",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run start:renderer\" \"npm run start:main\"",
+    "build": "npm run build:renderer && npm run build:main",
+    "start:renderer": "webpack --watch --mode development",
+    "build:renderer": "webpack --mode production",
+    "start:main": "electron main.js",
+    "build:main": "electron-packager main 'AutoHotkeyInterface' --platform=win32"
+  },
+  "author": "Cole Franz",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^9.1.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-classes": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "concurrently": "^3.6.1",
+    "css-loader": "^1.0.0",
+    "electron": "^2.0.7",
+    "electron-packager": "^12.1.1",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
+    "postcss-loader": "^3.0.0",
+    "style-loader": "^0.22.1",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5",
+    "webpack-target-electron-renderer": "^0.4.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.10",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-hot-loader": "^4.3.4"
+  }
+}
