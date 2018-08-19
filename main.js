@@ -1,5 +1,10 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, dialog, ipcMain} = require('electron')
+const fs = require('fs');
 const path = require('path');
+const fileUtils = require('./main/fileUtils.js');
+require('electron-reload')(__dirname, {
+    electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
+});
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -28,4 +33,20 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', createWindow);
+
+ipcMain.on('open-dialog', (event) => {
+    dialog.showOpenDialog({
+        filters: [{
+            name: `AutoHotkey ('.ahk')`,
+            extensions: ['ahk']
+        }],
+        properties: ['openFile']
+    }, async (filepaths) => {
+        if (filepaths && filepaths[0]) {
+            const filepath = filepaths[0];
+            const file = await fileUtils.getFile(filepath);
+            event.sender.send('open-file', path.basename(filepath) ,file);
+        }
+    });
+});
