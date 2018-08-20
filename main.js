@@ -2,7 +2,7 @@ const { app, BrowserWindow, dialog, ipcMain} = require('electron')
 const fs = require('fs');
 const path = require('path');
 const fileUtils = require('./main/fileUtils.js');
-require('electron-reload')(path.join(__dirname, 'renderer'));
+require('electron-reload')(path.join(__dirname, 'build'));
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
