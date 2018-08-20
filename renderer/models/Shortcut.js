@@ -1,5 +1,15 @@
-module.exports = class Shortcut {
+import _ from 'lodash';
+import Modifier from './Modifier.js';
+
+class Shortcut {
     constructor() {
+        this.modifiers = {
+            shiftKey: new Modifier('shift', '+'),
+            ctrlKey: new Modifier('Control', '^'),
+            altKey: new Modifier('Alt', '!'),
+            winKey: new Modifier('Windows', '#'),
+            key: ''
+        };
         this.hotkeys = [];
         // maybe should assign a guid for key
     }
@@ -15,4 +25,12 @@ module.exports = class Shortcut {
             this.hotkeys.splice(index, 1);
         }
     }
+
+    extractShortcutKeys(shortcutKeyText) {
+        _.forEach(this.modifiers, (modifier) => {
+            modifier.setActiveIfShortcutKeyTextMatches(shortcutKeyText)
+        });
+    }
 }
+
+export default Shortcut;

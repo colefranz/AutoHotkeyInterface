@@ -2,7 +2,7 @@ import AbstractHotkey from './AbstractHotkey.js';
 
 const matcher = /^Click$/;
 
-module.exports = class ClickHotkey extends AbstractHotkey {
+export default class ClickHotkey extends AbstractHotkey {
     constructor(string) {
         super('click');
     }

@@ -29,4 +29,4 @@ Hotkey.defaultProps = {
     hotkey: new AbstractHotkey()
 }
 
-module.exports = Hotkey;
+export default  Hotkey;

@@ -2,7 +2,7 @@ import AbstractHotkey from './AbstractHotkey.js';
 
 const matcher = /^Sleep, (\d+)$/;
 
-module.exports = class SleepHotkey extends AbstractHotkey {
+export default class SleepHotkey extends AbstractHotkey {
     constructor(string) {
         super('sleep');
         const match = matcher.exec(string);

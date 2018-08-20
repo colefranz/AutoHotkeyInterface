@@ -34,14 +34,24 @@ export default class Script extends React.Component {
     }
 
     renderShortcuts() {
+        const shortcuts = this.state.shortcuts.map((shortcut, i) => {
+            const handleShortcutUpdate = (updatedShortcut) => {
+                this.setState(({shortcuts}) => {
+                    shortcuts[i] = updatedShortcut;
+
+                    return {shortcuts};
+                });
+            };
+
+            return <Shortcut key={i} updateModel={handleShortcutUpdate} shortcut={shortcut} />
+        });
+
         // this key will break in no time, need a better key
         return (
             <div className="shortcuts">
-                {this.state.shortcuts.map((shortcut, i) => {
-                    return <Shortcut key={i} shortcut={shortcut} />
-                })}
+                {shortcuts}
             </div>
-        )
+        );
     }
 
     renderCreatingActions() {

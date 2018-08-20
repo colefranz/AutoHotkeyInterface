@@ -2,9 +2,7 @@ const { app, BrowserWindow, dialog, ipcMain} = require('electron')
 const fs = require('fs');
 const path = require('path');
 const fileUtils = require('./main/fileUtils.js');
-require('electron-reload')(__dirname, {
-    electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
-});
+require('electron-reload')(path.join(__dirname, 'renderer'));
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -16,7 +14,7 @@ function createWindow() {
 
     // and load the index.html of the app.
     // win.loadURL(`http://localhost:8080`)
-    win.loadURL(`file://${path.join(__dirname, 'build/index.html')}`);
+    win.loadURL(`file://${path.join(__dirname, 'build', 'index.html')}`);
 
     // Open the DevTools.
     win.webContents.openDevTools()
