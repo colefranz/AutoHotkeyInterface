@@ -25,6 +25,7 @@
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
     "concurrently": "^3.6.1",
     "css-loader": "^1.0.0",
     "electron": "^2.0.7",
