@@ -4,10 +4,14 @@ const matcher = /^Click, right$/;
 
 export default class ClickHotkey extends AbstractHotkey {
     constructor(string) {
-        super('right-click');
+        super();
     }
 
     static stringMatches(string) {
         return matcher.exec(string) !== null;
+    }
+
+    static get name() {
+        return 'right click';
     }
 }
