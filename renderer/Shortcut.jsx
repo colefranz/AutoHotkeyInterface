@@ -2,16 +2,12 @@ import React from 'react';
 import _ from 'lodash';
 import ShortcutModel from './models/Shortcut.js';
 import Modifier from './Modifier.jsx';
-import Hotkey from './Hotkey.jsx';
-import Dropdown from 'react-dropdown';
-import hotkeys from './Hotkeys.js'
+import HotkeyCreator from './HotkeyCreator.jsx';
+import AbstractHotkey from './hotkeys/AbstractHotkey.js';
 
 class Shortcut extends React.Component {
     constructor() {
         super();
-        this.state = {
-            inProgress: false
-        };
     }
 
     handleKeyInputChange = (event) => {
@@ -25,21 +21,36 @@ class Shortcut extends React.Component {
     }
 
     startNewHotkey = () => {
-        this.setState({inProgress: true});
-    }
-
-    // maybe have hotkey jsx use this as the name and then the configurables change as the selected type changes
-    onSelectHotkeyType = (val) => {
-        console.log(val);
+        const {shortcut} = this.props;
+        shortcut.hotkeys.push(new AbstractHotkey());
+        this.props.updateModel(shortcut);
     }
 
     renderHotkeys() {
         // for each slider
-        const configurables = this.props.shortcut.hotkeys.map((hotkey, i) => {
-            return <Hotkey key={i} hotkey={hotkey} />;
+        const hotkeyCreators = this.props.shortcut.hotkeys.map((hotkey, i) => {
+            const updateHotkey = (newHotkey) => {
+                const {shortcut} = this.props;
+                shortcut.hotkeys[i] = newHotkey;
+                this.props.updateModel(shortcut);
+            };
+
+            const removeHotkey = () => {
+                const {shortcut} = this.props;
+                shortcut.hotkeys.splice(i, 1);
+                this.props.updateModel(shortcut);
+            };
+            return (
+                <HotkeyCreator
+                    key={hotkey.id}
+                    hotkey={hotkey}
+                    changeHotkey={updateHotkey}
+                    onDelete={removeHotkey}
+                />
+            );
         });
 
-        return <div className="hotkeys">{configurables}</div>;
+        return <div className="hotkey-creators">{hotkeyCreators}</div>;
     }
 
     renderModifiers() {
@@ -88,22 +99,6 @@ class Shortcut extends React.Component {
             <div className="add-hotkey-button" onClick={this.startNewHotkey}>
                 Add New Action
             </div>
-        )
-    }
-
-    renderNewHotkeyDropdown() {
-        const dropdownOptions = hotkeys.map((hotkey) => {
-            return {
-                value: hotkey,
-                label: hotkey.name
-            };
-        });
-        return (
-            <Dropdown
-                options={dropdownOptions}
-                placeholder="Select An Action Type"
-                onChange={this.onSelectHotkeyType}
-            />
         );
     }
 
@@ -113,7 +108,6 @@ class Shortcut extends React.Component {
                 {this.renderShortcutKey()}
                 {this.renderHotkeys()}
                 {this.renderAddHotkey()}
-                {this.state.inProgress && this.renderNewHotkeyDropdown()}
                 <hr />
             </div>
         );
