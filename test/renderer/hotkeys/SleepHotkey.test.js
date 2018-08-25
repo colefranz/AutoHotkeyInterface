@@ -1,4 +1,4 @@
-import SleepHotkey from '../../../renderer/hotkeys/SleepHotkey.js';
+import SleepHotkey from '../../../renderer/models/hotkeys/SleepHotkey.js';
 
 describe('Sleep hotkey', () => {
     it('should match properly', () => {

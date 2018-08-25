@@ -3,7 +3,7 @@ import _ from 'lodash';
 import ShortcutModel from './models/Shortcut.js';
 import Modifier from './Modifier.jsx';
 import HotkeyCreator from './HotkeyCreator.jsx';
-import AbstractHotkey from './hotkeys/AbstractHotkey.js';
+import AbstractHotkey from './models/hotkeys/AbstractHotkey.js';
 
 class Shortcut extends React.Component {
     constructor() {
@@ -44,7 +44,7 @@ class Shortcut extends React.Component {
                 <HotkeyCreator
                     key={hotkey.id}
                     hotkey={hotkey}
-                    changeHotkey={updateHotkey}
+                    updateModel={updateHotkey}
                     onDelete={removeHotkey}
                 />
             );

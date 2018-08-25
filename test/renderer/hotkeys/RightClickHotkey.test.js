@@ -1,4 +1,4 @@
-import RightClickHotkey from '../../../renderer/hotkeys/RightClickHotkey.js';
+import RightClickHotkey from '../../../renderer/models/hotkeys/RightClickHotkey.js';
 
 describe('Click hotkey', () => {
     it('should match properly', () => {

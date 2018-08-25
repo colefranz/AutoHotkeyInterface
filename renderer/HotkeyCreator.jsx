@@ -1,6 +1,7 @@
 import React from 'react';
-import AbstractHotkey from './hotkeys/AbstractHotkey.js';
-import hotkeys from './Hotkeys.js';
+import AbstractHotkey from './models/hotkeys/AbstractHotkey.js';
+import hotkeys from './models/hotkeys/hotkeys.js';
+import Configurable from './Configurable.jsx';
 import Dropdown from 'react-dropdown';
 
 class HotkeyCreator extends React.Component {
@@ -10,8 +11,9 @@ class HotkeyCreator extends React.Component {
         const newHotkey = new NewHotkey();
         newHotkey.applyConfigurables(configurables);
         newHotkey.id = id;
-        this.props.changeHotkey(newHotkey);
+        this.props.updateModel(newHotkey);
     }
+
     renderNewHotkeyDropdown() {
         const dropdownOptions = hotkeys.map((hotkey) => {
             return {
@@ -33,9 +35,16 @@ class HotkeyCreator extends React.Component {
 
     renderConfigurables() {
         // for each slider
-        console.log(this.props.hotkey.configurables)
         const configurables = this.props.hotkey.configurables.map((configurable, i) => {
-            return <span key={i}>Slide me {configurable.value}</span>
+            const updateConfigurable = (updatedConfigurable) => {
+                this.props.hotkey.configurables[i] = updatedConfigurable;
+                this.props.updateModel(this.props.hotkey);
+            };
+            return <Configurable
+                key={i}
+                configurable={configurable}
+                updateModel={updateConfigurable}
+            />;
         });
 
         return <div className="hotkey-configurables">{configurables}</div>;
@@ -62,7 +71,7 @@ class HotkeyCreator extends React.Component {
 
 HotkeyCreator.defaultProps = {
     hotkey: new AbstractHotkey(),
-    changeHotkey: () => {},
+    updateModel: () => {},
     onDelete: () => {}
 }
 

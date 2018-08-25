@@ -8,6 +8,7 @@ module.exports = {
         path: path.resolve(__dirname, 'build'),
         filename: 'main.bundle.js'
     },
+    devtool: 'true',
     mode: 'development',
     module: {
         rules: [
