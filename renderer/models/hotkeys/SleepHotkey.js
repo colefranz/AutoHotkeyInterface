@@ -1,12 +1,12 @@
 import AbstractHotkey from './AbstractHotkey.js';
-import Configurable from '../Configurable.js';
+import NumberConfigurable from '../NumberConfigurable.js';
 
 const matcher = /^Sleep, (\d+)$/;
 
 export default class SleepHotkey extends AbstractHotkey {
     constructor() {
         super();
-        this.configurables.push(new Configurable());
+        this.configurables.push(new NumberConfigurable());
     }
 
     static stringMatches(string) {

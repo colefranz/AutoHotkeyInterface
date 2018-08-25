@@ -1,6 +1,6 @@
 import React from 'react';
 import AbstractHotkey from './models/hotkeys/AbstractHotkey.js';
-import hotkeys from './models/hotkeys/hotkeys.js';
+import hotkeys from './models/hotkeys/Hotkeys.js';
 import Configurable from './Configurable.jsx';
 import Dropdown from 'react-dropdown';
 
