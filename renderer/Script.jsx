@@ -67,9 +67,13 @@ export default class Script extends React.Component {
     render() {
         return (
             <div className="script">
-                {this.renderExitingActions()}
-                {this.renderShortcuts()}
-                {this.renderCreatingActions()}
+                <div className="script-body">
+                    {this.renderShortcuts()}
+                    {this.renderCreatingActions()}
+                </div>
+                <div className="footer">
+                    {this.renderExitingActions()}
+                </div>
             </div>
         );
     }

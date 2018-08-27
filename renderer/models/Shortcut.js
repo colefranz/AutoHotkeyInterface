@@ -4,10 +4,10 @@ import Modifier from './Modifier.js';
 class Shortcut {
     constructor() {
         this.modifiers = {
-            shiftKey: new Modifier('shift', '+'),
-            ctrlKey: new Modifier('Control', '^'),
+            shiftKey: new Modifier('Shift', '+'),
+            ctrlKey: new Modifier('Ctrl', '^'),
             altKey: new Modifier('Alt', '!'),
-            winKey: new Modifier('Windows', '#'),
+            winKey: new Modifier('Win', '#'),
             key: ''
         };
         this.hotkeys = [];
