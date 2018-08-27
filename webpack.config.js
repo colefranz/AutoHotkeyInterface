@@ -15,7 +15,16 @@ module.exports = {
             {
                 test: /\.less$/,
                 use: [
-                    "style-loader", "css-loader", "less-loader", "postcss-loader"
+                    "style-loader", "css-loader", "less-loader",
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: 'postcss',
+                            plugins: [
+                                require('autoprefixer')()
+                            ]
+                        }
+                    }
                 ],
                 include: [
                     path.resolve(__dirname, 'renderer')
