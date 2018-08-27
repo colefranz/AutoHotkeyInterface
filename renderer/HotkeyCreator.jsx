@@ -2,7 +2,7 @@ import React from 'react';
 import AbstractHotkey from './models/hotkeys/AbstractHotkey.js';
 import hotkeys from './models/hotkeys/Hotkeys.js';
 import Configurable from './Configurable.jsx';
-import Dropdown from 'react-dropdown';
+import Dropdown from './Dropdown.jsx';
 
 class HotkeyCreator extends React.Component {
     onSelectHotkeyType = (dropdownObject) => {
@@ -53,7 +53,7 @@ class HotkeyCreator extends React.Component {
     renderActions() {
         return (
             <div className="hotkey-creation-actions">
-                <button onClick={this.props.onDelete}>x</button>
+                <div className="button" onClick={this.props.onDelete}>x</div>
             </div>
         );
     }

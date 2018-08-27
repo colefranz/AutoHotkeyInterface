@@ -39,8 +39,8 @@ export default class AutoHotkeyInterface extends React.Component {
     renderActions() {
         return (
             <div className="actions">
-                <button onClick={this.sendOpenDialogCommand}>Open File</button>
-                <button onClick={this.startNewScript}>Create File</button>
+                <div className="button" onClick={this.sendOpenDialogCommand}>Open File</div>
+                <div className="button" onClick={this.startNewScript}>Create File</div>
             </div>
         );
     }

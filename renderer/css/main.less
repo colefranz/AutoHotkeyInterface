@@ -1,4 +1,14 @@
-@primary: black;
+@light: rgba(216, 219, 226, 1);
+@accent: rgba(169, 188, 208, 1);
+@primary: rgba(88, 164, 176, 1);
+@secondary: rgba(55, 63, 81, 1);
+@dark: rgba(27, 27, 30, 1);
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: @dark;
+    background: @light;
+}
 
 * {
     box-sizing: border-box;
@@ -9,12 +19,48 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     margin: 0;
 }
 
-.shortcut-key {
-    width: 50px;
-    height: 20px;
-    line-height: 20px;
-    display: inline-block;
-    border: 1px solid @primary;
-    padding: 1px;
-    text-align: center;
+input, .button {
+    padding: 15px;
 }
+
+.shortcut-key {
+    display: inline-block;
+    width: 150px;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    cursor: pointer;
+    background: @accent;
+    border: 1px solid @accent;
+
+    &:focus, &:active {
+        outline: none;
+        border: 1px solid @primary;
+    }
+}
+
+.button {
+    display: inline-block;
+    background: @primary;
+    margin: 0px 3px;
+    cursor: pointer;
+}
+
+.selector {
+    display: inline-block;
+    padding: 5px;
+    cursor: pointer;
+    border: 1px solid @accent;
+    border-left: none;
+
+    &:first-child {
+        border-left: 1px solid @accent
+    }
+}
+
+.hotkey-creator {
+    display: flex;
+    margin: 10px 5px;
+}
+
+@import './dropdown.less';

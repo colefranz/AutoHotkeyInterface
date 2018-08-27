@@ -2,7 +2,7 @@ import React from 'react';
 
 class ShortcutKey extends React.Component {
     getClassName() {
-        const classNames = ['modifier'];
+        const classNames = ['modifier', 'selector'];
 
         if (this.props.modifier.active) classNames.push('active');
 

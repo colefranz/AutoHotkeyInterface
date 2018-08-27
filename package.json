@@ -6,8 +6,8 @@
   "scripts": {
     "start": "concurrently \"npm run start:renderer\" \"npm run start:main\"",
     "build": "npm run build:renderer && npm run build:main",
-    "start:renderer": "webpack --watch --mode development",
-    "build:renderer": "webpack --mode production",
+    "start:renderer": "webpack --watch --progress --mode development",
+    "build:renderer": "webpack --progress --mode production",
     "start:main": "electron main.js",
     "build:main": "electron-packager main 'AutoHotkeyInterface' --platform=win32",
     "test": "jest --color",
@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.10",
+    "npm": "^6.4.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-dropdown": "^1.6.2",

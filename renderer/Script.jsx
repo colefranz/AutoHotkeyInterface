@@ -27,8 +27,8 @@ export default class Script extends React.Component {
     renderExitingActions() {
         return (
             <div className="actions exiting-actions">
-                <button className="cancel-button" onClick={this.cancel}>Cancel</button>
-                <button className="save-button" onClick={this.props.onSave}>Save</button>
+                <div className="cancel-button button" onClick={this.cancel}>Cancel</div>
+                <div className="save-button button" onClick={this.props.onSave}>Save</div>
             </div>
         );
     }
@@ -57,9 +57,9 @@ export default class Script extends React.Component {
     renderCreatingActions() {
         return (
             <div className="actions creating-actions">
-                <button className="cancel-button" onClick={this.addShortcut}>
+                <div className="cancel-button button" onClick={this.addShortcut}>
                     Create new Shortcut
-                </button>
+                </div>
             </div>
         );
     }

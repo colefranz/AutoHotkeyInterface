@@ -1,0 +1,36 @@
+.dropdown {
+    position: relative;
+    background: @accent;
+    display: inline-block;
+    cursor: pointer;
+
+    .dropdown-control {
+        padding: 15px;
+        user-select: none;
+        border: 1px solid @dark;
+    }
+
+    .dropdown-options {
+        position: absolute;
+        background: @accent;
+        transition: all 0.2s ease;
+        visibility: hidden;
+        transform: rotateX(90deg);
+        transform-origin: top;
+        cursor: pointer;
+
+        .dropdown-option {
+            padding: 10px;
+            border: 1px solid @dark;
+            border-top: none;
+        }
+    }
+
+    &.active {
+        .dropdown-options {
+            opacity: 1;
+            visibility: visible;
+            transform: rotateX(0deg);
+        }
+    }
+}

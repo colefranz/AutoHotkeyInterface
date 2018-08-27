@@ -53,9 +53,10 @@ class Shortcut extends React.Component {
         return <div className="hotkey-creators">{hotkeyCreators}</div>;
     }
 
-    renderModifiers() {
-        const {shortcut} = this.props;
-        const shortcutKeys = _.map(this.props.shortcut.modifiers, (modifier, i) => {
+    renderShortcutKey() {
+        const placeholder = "Enter a key";
+        const shortcut = this.props.shortcut;
+        const shortcutKeyModifiers = _.map(this.props.shortcut.modifiers, (modifier, i) => {
             const handleModifierUpdate = (updatedModifier) => {
                 shortcut.modifiers[i] = updatedModifier;
                 this.props.updateModel(shortcut);
@@ -69,26 +70,15 @@ class Shortcut extends React.Component {
                 />
             );
         });
-
-        return (
-            <div className="shortcut-keys">
-                {shortcutKeys}
-            </div>
-        )
-    }
-
-    // TODO style this ghetto input so that on focus the text looks highlighted or on focus
-    // it displays something totally different
-    renderShortcutKey() {
         return (
             <div className="shortcut-key-container">
-                {this.renderModifiers()}
+                {shortcutKeyModifiers}
                 <div
                     className="shortcut-key"
                     onKeyDown={this.handleKeyInputChange}
                     tabIndex="-1"
                 >
-                    {this.props.shortcut.key}
+                    {this.props.shortcut.key || placeholder}
                 </div>
             </div>
         )
@@ -96,7 +86,7 @@ class Shortcut extends React.Component {
 
     renderAddHotkey() {
         return (
-            <div className="add-hotkey-button" onClick={this.startNewHotkey}>
+            <div className="add-hotkey button" onClick={this.startNewHotkey}>
                 Add New Action
             </div>
         );
