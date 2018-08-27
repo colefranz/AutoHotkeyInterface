@@ -6,9 +6,6 @@
 
     .dropdown-control {
         padding: 15px;
-        user-select: none;
-        border: 1px solid @dark;
-        width: 200px;
     }
 
     .dropdown-options {
@@ -20,13 +17,18 @@
         transform-origin: top;
         cursor: pointer;
         z-index: 999;
-        width: 200px;
+        user-select: none;
 
         .dropdown-option {
-            padding: 10px;
-            border: 1px solid @dark;
             border-top: none;
+            padding: 10px;
         }
+    }
+
+    .dropdown-option {
+        border: 1px solid @dark;
+        text-transform: capitalize;
+        width: 200px;
     }
 
     &.active {

@@ -24,7 +24,7 @@ export default class SleepHotkey extends AbstractHotkey {
     }
 
     static get name() {
-        return 'KeyPress';
+        return 'Key Press';
     }
 
     setFromString(string) {
