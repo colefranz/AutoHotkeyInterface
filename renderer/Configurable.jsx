@@ -1,5 +1,6 @@
 import React from 'react';
 import ConfigurableModel from './models/Configurable.js';
+import Toggle from './Toggle.jsx';
 
 class HotkeyCreator extends React.Component {
     toggleCheckboxChange = () => {
@@ -9,15 +10,11 @@ class HotkeyCreator extends React.Component {
 
     renderRandomizeToggle() {
         return (
-            <label>
-                Randomize
-                <input
-                    type="checkbox"
-                    value="Randomize"
-                    checked={this.props.configurable.randomize}
-                    onChange={this.toggleCheckboxChange}
-                />
-            </label>
+            <Toggle
+                label="Randomize"
+                toggle={this.toggleCheckboxChange}
+                active={this.props.configurable.randomize}
+            />
         );
     }
 

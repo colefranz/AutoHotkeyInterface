@@ -1,0 +1,61 @@
+.toggle {
+    width: 100px;
+    height: 46px;
+    display: relative;
+    user-select: none;
+
+    .toggle-side {
+        position: absolute;
+        width: 60px;
+        transition: transform 0.2s ease;
+    }
+
+    .toggle-slider {
+        display: inline-block;
+        padding: 5px;
+        width: 60px;
+        background: @accent;
+        overflow: hidden;
+        border-radius: 23px;
+        padding: 4px;
+
+        .inactive-side {
+            transform-origin: left;
+            transform: rotateY(0deg);
+        }
+
+        .active-side {
+            transform-origin: right;
+            transform: rotateY(90deg);
+            padding-left: 20px;
+        }
+
+
+        i {
+            display: inline-block;
+            background: @light;
+            border: 1px solid @secondary;
+            transition: transform 0.2s ease;
+            width: 16px;
+            height: 16px;
+            border-radius: 8px;
+            transform: translate(35px);
+        }
+    }
+
+
+    &.active {
+        .inactive-side {
+            transform: rotateY(-90deg);
+        }
+
+        .active-side {
+            transform: rotateY(0deg);
+        }
+
+        i {
+            background: @primary;
+            transform: translate(0px);
+        }
+    }
+}
