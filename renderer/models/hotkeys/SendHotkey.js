@@ -11,21 +11,21 @@ keyMap.set('ArrowUp', '{Up}');
 keyMap.set('ArrowDown', '{Down}');
 keyMap.set(' ', '{Space}');
 
-export default class SleepHotkey extends AbstractHotkey {
+export default class SendHotkey extends AbstractHotkey {
     constructor() {
         super();
         this.configurables.push(new TextConfigurable());
     }
 
     static stringMatches(string) {
-        return matcher.exec(string) !== null;
+        return SendHotkey.matcher.exec(string) !== null;
     }
 
     static get name() {
         return 'Key Press';
     }
 
-    static matcher() {
+    static get matcher() {
         return /^Send (\{[0-9a-zA-Z]+\}|[0-9a-zA-Z])$/;
     }
 

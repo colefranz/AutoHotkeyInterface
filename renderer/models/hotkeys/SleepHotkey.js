@@ -8,7 +8,7 @@ export default class SleepHotkey extends AbstractHotkey {
     }
 
     static stringMatches(string) {
-        return matcher.exec(string) !== null;
+        return SleepHotkey.matcher.exec(string) !== null;
     }
 
     static get name() {
