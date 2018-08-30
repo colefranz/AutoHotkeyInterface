@@ -11,4 +11,8 @@ export default class ClickHotkey extends AbstractHotkey {
     static get name() {
         return 'right click';
     }
+
+    toString() {
+        return ClickHotkey.matcher.source;
+    }
 }

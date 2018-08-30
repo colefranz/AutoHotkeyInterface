@@ -29,10 +29,14 @@ export default class SendHotkey extends AbstractHotkey {
         return /^Send (\{[0-9a-zA-Z]+\}|[0-9a-zA-Z])$/;
     }
 
+    get configurable() {
+        return this.configurables[0];
+    }
+
     setFromString(string) {
         const match = SendHotkey.matcher.exec(string);
         if (match) {
-            this.configurables[0].value = match[1];
+            this.configurable.value = match[1];
         }
     }
 
@@ -45,5 +49,9 @@ export default class SendHotkey extends AbstractHotkey {
         } else {
             updateValue(`{${key}}`);
         }
+    }
+
+    toString() {
+        return `Send ${this.configurable.toString()}`;
     }
 }

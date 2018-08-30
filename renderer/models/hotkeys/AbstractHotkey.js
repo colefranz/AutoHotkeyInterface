@@ -24,4 +24,8 @@ export default class AbstractHotkey {
             }
         }
     }
+
+    toString() {
+        throw new Error(`Abstract method toString not implemented by child class`);
+    }
 }

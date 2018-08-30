@@ -8,3 +8,12 @@ module.exports.getFile = async (filename) => {
         });
     });
 };
+
+module.exports.writeFile = async (filename, data) => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(filename, data, (err) => {
+            if (err) reject(err);
+            resolve();
+        });
+    });
+}

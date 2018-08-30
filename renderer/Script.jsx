@@ -15,6 +15,10 @@ export default class Script extends React.Component {
         this.props.onCancel();
     }
 
+    save = () => {
+        this.props.onSave(this.state.shortcuts);
+    }
+
     addShortcut = () => {
         // TODO are you sure???
         this.setState(({shortcuts}) => {
@@ -28,7 +32,7 @@ export default class Script extends React.Component {
         return (
             <div className="actions exiting-actions">
                 <div className="cancel-button button" onClick={this.cancel}>Cancel</div>
-                <div className="save-button button" onClick={this.props.onSave}>Save</div>
+                <div className="save-button button" onClick={this.save}>Save</div>
             </div>
         );
     }

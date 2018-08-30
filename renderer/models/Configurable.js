@@ -19,4 +19,8 @@ export default class Configurable {
     updateValue(index, value) {
         this.values[index] = value;
     }
+
+    toString() {
+        return this.values.join(', ');
+    }
 }

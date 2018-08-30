@@ -48,3 +48,16 @@ ipcMain.on('open-dialog', (event) => {
         }
     });
 });
+
+ipcMain.on('save-script', (event, args) => {
+    dialog.showSaveDialog({
+        filters: [{
+            name: `AutoHotkey ('.ahk')`,
+            extensions: ['ahk']
+        }],
+        properties: ['openFile']
+    }, async (filepath) => {
+        await fileUtils.writeFile(filepath, args.text);
+        event.sender.send('saved-script');
+    });
+});

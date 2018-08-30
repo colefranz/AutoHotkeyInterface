@@ -27,8 +27,14 @@ export default class AutoHotkeyInterface extends React.Component {
         this.setState({displayingScript: false});
     }
 
-    saveScript = (scriptContents) => {
-        // TODO save script
+    saveScript = (shortcuts) => {
+        shortcuts.map((shortcut) => {
+            return shortcut.toString();
+        });
+
+        ipcRenderer.send('save-script', {
+            text: shortcuts.join('\n\n')
+        });
         this.stopDisplayingScript();
     }
 

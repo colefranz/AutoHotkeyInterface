@@ -12,4 +12,8 @@ export default class ShortcutKey {
     toggleActive() {
         this.active = !this.active;
     }
+
+    toString() {
+        return this.active ? this.symbol : '';
+    }
 }

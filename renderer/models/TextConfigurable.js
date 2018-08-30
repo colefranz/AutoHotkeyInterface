@@ -14,4 +14,13 @@ export default class textConfigurable extends Configurable {
         const value = event.key;
         this._values[index] = value;
     }
+
+    toString() {
+        const values = this.values.map((value) => {
+            if (value.length > 1) return `{${value}}`;
+            else return value;
+        });
+
+        return values.join(', ');
+    }
 }

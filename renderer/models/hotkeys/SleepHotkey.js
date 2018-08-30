@@ -19,10 +19,25 @@ export default class SleepHotkey extends AbstractHotkey {
         return /^Sleep, (\d+)$/;
     }
 
+    get configurable() {
+        return this.configurables[0];
+    }
+
     setFromString(string) {
         const match = SleepHotkey.matcher.exec(string);
         if (match) {
-            this.configurables[0].value = match[1];
+            this.configurable.value = match[1];
+        }
+    }
+
+    toString() {
+        if (this.configurable.randomize) {
+            const pieces = [];
+            pieces.push[`Random, rand, ${this.configurable.toString()}`];
+            pieces.push('Sleep, %rand%');
+            return pieces.join('\n');
+        } else {
+            return `Sleep, ${this.configurable.toString()}`;
         }
     }
 }
