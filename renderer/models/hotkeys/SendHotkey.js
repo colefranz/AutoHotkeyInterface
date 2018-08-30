@@ -3,7 +3,6 @@ import TextConfigurable from '../TextConfigurable.js';
 
 // TODO include Modifiers here, need a match for each of them and will
 // require some refactoring to make that usable here too
-const matcher = /^Send (\{[0-9a-zA-Z]+\}|[0-9a-zA-Z])$/;
 // map of {Key: Output}
 const keyMap = new Map();
 keyMap.set('ArrowLeft', '{Left}');
@@ -11,7 +10,6 @@ keyMap.set('ArrowRight', '{Right}');
 keyMap.set('ArrowUp', '{Up}');
 keyMap.set('ArrowDown', '{Down}');
 keyMap.set(' ', '{Space}');
-
 
 export default class SleepHotkey extends AbstractHotkey {
     constructor() {
@@ -27,8 +25,12 @@ export default class SleepHotkey extends AbstractHotkey {
         return 'Key Press';
     }
 
+    static matcher() {
+        return /^Send (\{[0-9a-zA-Z]+\}|[0-9a-zA-Z])$/;
+    }
+
     setFromString(string) {
-        const match = matcher.exec(string);
+        const match = SendHotkey.matcher.exec(string);
         if (match) {
             this.configurables[0].value = match[1];
         }

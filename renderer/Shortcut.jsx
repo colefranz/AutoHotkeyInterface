@@ -6,10 +6,6 @@ import HotkeyCreator from './HotkeyCreator.jsx';
 import AbstractHotkey from './models/hotkeys/AbstractHotkey.js';
 
 class Shortcut extends React.Component {
-    constructor() {
-        super();
-    }
-
     handleKeyInputChange = (event) => {
         const newKey = String.fromCharCode(event.which);
         const match = /^[0-9a-zA-Z]$/.exec(newKey);
@@ -74,7 +70,7 @@ class Shortcut extends React.Component {
             <div className="shortcut-key-container">
                 {shortcutKeyModifiers}
                 <div
-                    className="shortcut-key"
+                    className="shortcut-key button"
                     onKeyDown={this.handleKeyInputChange}
                     tabIndex="-1"
                 >

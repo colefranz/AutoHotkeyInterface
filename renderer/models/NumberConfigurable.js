@@ -3,7 +3,6 @@ import Configurable from './Configurable.js';
 export default class NumberConfigurable extends Configurable {
     constructor(values = [0, 0]) {
         super(values);
-        this._randomize = false;
         this.type = 'number';
     }
 
@@ -13,10 +12,6 @@ export default class NumberConfigurable extends Configurable {
         } else {
             return this._values.slice(0, 1);
         }
-    }
-
-    get randomize() {
-        return this._randomize;
     }
 
     set randomize(random) {

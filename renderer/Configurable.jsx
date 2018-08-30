@@ -32,7 +32,7 @@ class HotkeyCreator extends React.Component {
             const inputProps = {
                 key: i,
                 type,
-                value,
+                value: value.toString(),
                 [eventToListenTo]: onInputChange
             };
 
