@@ -28,10 +28,6 @@ hr {
     height: 1px;
 }
 
-input, .button {
-    padding: 15px;
-}
-
 html, body {
     position: absolute;
     top: 0;
@@ -70,6 +66,16 @@ html, body {
     }
 }
 
+input, .button, .selector, .dropdown-option {
+    padding: 15px;
+    /*background: @light;
+    transition: background-color 0.2s ease, color 0.1s ease;
+    &:hover {
+        background: @primary;
+        color: @light;
+    }*/
+}
+
 .script {
     display: flex;
     flex-direction: column;
@@ -88,14 +94,17 @@ html, body {
     }
 }
 
+.shortcut-key-container {
+    margin: 3px;
+}
+
 .shortcut-key {
     display: inline-block;
     width: 150px;
     margin: 0px 5px;
     text-align: center;
     cursor: pointer;
-    background: @accent;
-    border: 1px solid @accent;
+    border: 1px solid @dark;
 
     &:focus, &:active {
         outline: none;
@@ -113,7 +122,6 @@ html, body {
 
 .selector {
     display: inline-block;
-    padding: 5px;
     cursor: pointer;
     border: 1px solid @accent;
     border-left: none;
@@ -125,6 +133,10 @@ html, body {
 
 .button, .selector {
     user-select: none;
+}
+
+.hotkey-creators {
+    margin: 0px 3px;
 }
 
 .hotkey-creator {
