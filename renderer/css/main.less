@@ -6,7 +6,6 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    font-size: 1.0em;
     color: @dark;
 }
 
@@ -19,8 +18,11 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     margin: 0;
 }
 
-input::placeholder {
-    color: @secondary;
+input {
+    border: 1px solid @primary;
+    &::placeholder {
+        color: @secondary;
+    }
 }
 
 hr {
@@ -72,6 +74,9 @@ html, body {
 
 input, .button, .selector, .dropdown-option {
     padding: 15px;
+    font-size: 16px;
+    line-height: 16px;
+    height: 48px;
     /*background: @light;
     transition: background-color 0.2s ease, color 0.1s ease;
     &:hover {
