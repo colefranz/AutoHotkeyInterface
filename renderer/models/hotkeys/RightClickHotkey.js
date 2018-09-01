@@ -13,6 +13,6 @@ export default class ClickHotkey extends AbstractHotkey {
     }
 
     toString() {
-        return ClickHotkey.matcher.source;
+        return ClickHotkey.matcher.source.replace('^', '').replace('$', '');
     }
 }

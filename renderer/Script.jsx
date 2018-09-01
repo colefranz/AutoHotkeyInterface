@@ -10,13 +10,30 @@ export default class Script extends React.Component {
         };
     }
 
+    // gonna gag that I have both of these, fix this ASAP
+    componentWillMount() {
+        if (this.props.shortcutsAsText) {
+            const shortcuts = ShortcutModel.getShortcutsFromText(this.props.shortcutsAsText);
+            this.setState({shortcuts});
+        }
+        this.setState({filepath: this.props.filepath});
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.shortcutsAsText) {
+            const shortcuts = ShortcutModel.getShortcutsFromText(nextProps.shortcutsAsText);
+            this.setState({shortcuts});
+        }
+        this.setState({filepath: nextProps.filepath});
+    }
+
     cancel = () => {
         // TODO are you sure???
         this.props.onCancel();
     }
 
     save = () => {
-        this.props.onSave(this.state.shortcuts);
+        this.props.onSave(this.state.shortcuts, this.state.filepath);
     }
 
     addShortcut = () => {
@@ -69,6 +86,7 @@ export default class Script extends React.Component {
     }
 
     render() {
+        // var filename = this.state.filepath.replace(/^.*[\\\/]/, '')
         return (
             <div className="script">
                 <div className="script-body">

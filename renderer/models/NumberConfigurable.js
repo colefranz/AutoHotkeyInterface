@@ -15,6 +15,10 @@ export default class NumberConfigurable extends Configurable {
         }
     }
 
+    set values(values) {
+        this._values = values;
+    }
+
     get randomize() {
         return this._randomize;
     }

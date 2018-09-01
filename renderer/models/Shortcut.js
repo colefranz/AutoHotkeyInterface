@@ -1,8 +1,11 @@
 import _ from 'lodash';
 import Modifier from './Modifier.js';
+import Hotkeys from './hotkeys/Hotkeys.js';
+
+const randomMatcher = /^Random, rand, (\d+), (\d+)$/;
 
 class Shortcut {
-    constructor() {
+    constructor(shortcutKeyText = '') {
         this.modifiers = {
             shiftKey: new Modifier('Shift', '+'),
             ctrlKey: new Modifier('Ctrl', '^'),
@@ -11,7 +14,44 @@ class Shortcut {
         };
         this.key = '';
         this.hotkeys = [];
+        this.extractShortcutKeys(shortcutKeyText);
         // maybe should assign a guid for react key
+    }
+
+    static getShortcutsFromText(shortcutsAsText) {
+        const lines = shortcutsAsText.split('\n').map((line) => line.trim());
+
+        let shortcuts = [];
+        let randomNumbers = null;
+        let currentShortcut = null;
+        lines.forEach((line) => {
+            if (!(line.length > 0)) return;
+            const randomMatch = randomMatcher.exec(line);
+            if (randomMatch) {
+                randomNumbers = [randomMatch[1], randomMatch[2]];
+            }
+            const hotkeyToMake = Hotkeys.find((Hotkey) => Hotkey.stringMatches(line));
+
+            if (hotkeyToMake) {
+                const hotkey = new hotkeyToMake();
+                hotkey.setFromString(line);
+                if (randomNumbers) {
+                    hotkey.setRandom(randomNumbers);
+                }
+                currentShortcut.hotkeys.push(hotkey);
+                randomNumbers = null;
+            }
+
+            if (currentShortcut) {
+                if (line === 'return') currentShortcut = null;
+            } else if (line.endsWith('::')) {
+                const shortcutKeyText = line.split('::')[0];
+                currentShortcut = new Shortcut(shortcutKeyText);
+                shortcuts.push(currentShortcut);
+            }
+        });
+
+        return shortcuts;
     }
 
     // insert hotkey at index
@@ -30,6 +70,10 @@ class Shortcut {
         _.forEach(this.modifiers, (modifier) => {
             modifier.setActiveIfShortcutKeyTextMatches(shortcutKeyText)
         });
+        const getKeyMatch = /(\w+)/.exec(shortcutKeyText);
+        if (getKeyMatch) {
+            this.key = getKeyMatch[1];
+        }
     }
 
     toString() {

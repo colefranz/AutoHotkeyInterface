@@ -7,6 +7,10 @@ export default class Configurable {
         return this._values;
     }
 
+    set value(value) {
+        this._values[0] = value;
+    }
+
     updateValue(index, value) {
         this.values[index] = value;
     }

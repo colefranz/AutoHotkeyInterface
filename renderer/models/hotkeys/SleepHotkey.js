@@ -16,11 +16,19 @@ export default class SleepHotkey extends AbstractHotkey {
     }
 
     static get matcher() {
-        return /^Sleep, (\d+)$/;
+        return /^Sleep, (\d+|%rand%)$/;
     }
 
     get configurable() {
         return this.configurables[0];
+    }
+
+    setRandom(randomNumbers) {
+        if (randomNumbers) {
+            this.configurable.randomize = true;
+            this.configurable.values = randomNumbers;
+            this.configurable.randomize = true;
+        }
     }
 
     setFromString(string) {
@@ -33,7 +41,7 @@ export default class SleepHotkey extends AbstractHotkey {
     toString() {
         if (this.configurable.randomize) {
             const pieces = [];
-            pieces.push[`Random, rand, ${this.configurable.toString()}`];
+            pieces.push(`Random, rand, ${this.configurable.toString()}`);
             pieces.push('Sleep, %rand%');
             return pieces.join('\n');
         } else {

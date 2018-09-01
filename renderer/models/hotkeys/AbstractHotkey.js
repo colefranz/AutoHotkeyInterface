@@ -14,6 +14,10 @@ export default class AbstractHotkey {
         return this.constructor.name;
     }
 
+    setFromString() {}
+
+    setRandom() {}
+
     applyConfigurables(configurables) {
         if (!configurables) return;
         for (let i = 0; i < this.configurables.length; i++) {

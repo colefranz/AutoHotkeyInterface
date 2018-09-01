@@ -77,10 +77,11 @@ class Shortcut extends React.Component {
                     {this.props.shortcut.key || placeholder}
                 </div>
             </div>
-        )
+        );
     }
 
     renderAddHotkey() {
+        if (this.props.shortcut.key === '') return null;
         return (
             <div className="add-hotkey button" onClick={this.startNewHotkey}>
                 Add New Action

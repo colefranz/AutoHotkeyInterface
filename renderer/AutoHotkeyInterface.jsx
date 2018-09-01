@@ -7,15 +7,15 @@ export default class AutoHotkeyInterface extends React.Component {
         super(props);
         this.state = {
             displayingScript: false,
-            scriptName: undefined,
-            scriptContents: undefined
+            scriptPath: '',
+            scriptAsText: ''
         }
     }
 
-    sendOpenDialogCommand() {
+    sendOpenDialogCommand = () => {
         ipcRenderer.send('open-dialog');
-        ipcRenderer.on('open-file', (event, scriptName, scriptContents) => {
-            this.setState({ scriptName, scriptContents });
+        ipcRenderer.on('open-file', (event, scriptPath, scriptAsText) => {
+            this.setState({ displayingScript: true, scriptPath, scriptAsText });
         });
     }
 
@@ -27,19 +27,25 @@ export default class AutoHotkeyInterface extends React.Component {
         this.setState({displayingScript: false});
     }
 
-    saveScript = (shortcuts) => {
+    saveScript = (shortcuts, name) => {
         shortcuts.map((shortcut) => {
-            return shortcut.toString();
+            const string = shortcut.toString();
+            return string;
         });
 
         ipcRenderer.send('save-script', {
-            text: shortcuts.join('\n\n')
+            text: shortcuts.join('\n\n'),
+            name
         });
         this.stopDisplayingScript();
     }
 
     renderScript() {
-        return <Script onSave={this.saveScript} onCancel={this.stopDisplayingScript}/>
+        return <Script
+            onSave={this.saveScript}
+            onCancel={this.stopDisplayingScript}
+            shortcutsAsText={this.state.scriptAsText}
+        />;
     }
 
     renderActions() {

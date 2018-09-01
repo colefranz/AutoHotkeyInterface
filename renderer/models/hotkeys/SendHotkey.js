@@ -36,7 +36,7 @@ export default class SendHotkey extends AbstractHotkey {
     setFromString(string) {
         const match = SendHotkey.matcher.exec(string);
         if (match) {
-            this.configurable.value = match[1];
+            this.configurable.value = match[1].replace('{', '').replace('}', '');
         }
     }
 
