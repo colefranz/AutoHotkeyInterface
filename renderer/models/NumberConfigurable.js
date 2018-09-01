@@ -26,8 +26,10 @@ export default class NumberConfigurable extends Configurable {
 
     set randomize(random) {
         this._randomize = random;
-        // I think that maybe this should sort when both inputs are not focused, can't
-        // imagine this will ever feel good as it is
+        this._sortValues();
+    }
+
+    cleanUp() {
         this._sortValues();
     }
 
@@ -35,7 +37,6 @@ export default class NumberConfigurable extends Configurable {
         const value = event.target.value;
         const valueAsNumber = parseInt(value, 10);
         this._values[index] = valueAsNumber > 0 ? valueAsNumber : 0;
-        this._sortValues();
     }
 
     _sortValues() {

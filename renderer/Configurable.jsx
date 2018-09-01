@@ -5,6 +5,18 @@ import NumberInput from './NumberInput.jsx';
 import TextInput from './TextInput.jsx';
 
 class HotkeyCreator extends React.Component {
+    constructor(props) {
+        super(props);
+        this.element = React.createRef();
+    }
+
+    focusOut = (event) => {
+        if (!this.element.current.contains(event.relatedTarget)) {
+            this.props.configurable.cleanUp();
+            this.props.updateModel(this.props.configurable);
+        }
+    }
+
     toggleCheckboxChange = () => {
         this.props.configurable.randomize = !this.props.configurable.randomize;
         this.props.updateModel(this.props.configurable);
@@ -30,9 +42,13 @@ class HotkeyCreator extends React.Component {
             };
 
             if (type === 'number') {
-                return <NumberInput key={i} value={value} onInput={onInputChange} />
+                return <NumberInput
+                    key={i}
+                    value={value}
+                    onInput={onInputChange}
+                />;
             } else if (type === 'text') {
-                return <TextInput key={i} value={value} onInput={onInputChange} />
+                return <TextInput key={i} value={value} onInput={onInputChange} />;
             }
         });
     }
@@ -40,7 +56,7 @@ class HotkeyCreator extends React.Component {
     render() {
         const type = this.props.configurable.type;
         return (
-            <div className="configurable">
+            <div className="configurable" ref={this.element} onBlur={this.focusOut} >
                 {type === 'number' && this.renderRandomizeToggle()}
                 {this.renderInputs(type)}
             </div>

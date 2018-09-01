@@ -15,6 +15,8 @@ export default class Configurable {
         this.values[index] = value;
     }
 
+    cleanUp() {}
+
     toString() {
         return this.values.join(', ');
     }
