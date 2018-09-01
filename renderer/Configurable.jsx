@@ -1,6 +1,8 @@
 import React from 'react';
 import ConfigurableModel from './models/Configurable.js';
 import Toggle from './Toggle.jsx';
+import NumberInput from './NumberInput.jsx';
+import TextInput from './TextInput.jsx';
 
 class HotkeyCreator extends React.Component {
     toggleCheckboxChange = () => {
@@ -26,17 +28,12 @@ class HotkeyCreator extends React.Component {
                 this.props.configurable.updateValue(i, event);
                 this.props.updateModel(this.props.configurable);
             };
-            // honestly maybe we should just have 2 different renderables at this point
-            // needs to be onKeyDown so that we can get `event.key` as a change event does not have it
-            const eventToListenTo = type === 'number' ? 'onChange' : 'onKeyDown';
-            const inputProps = {
-                key: i,
-                type,
-                value: value.toString(),
-                [eventToListenTo]: onInputChange
-            };
 
-            return <input {...inputProps} />;
+            if (type === 'number') {
+                return <NumberInput key={i} value={value} onInput={onInputChange} />
+            } else if (type === 'text') {
+                return <TextInput key={i} value={value} onInput={onInputChange} />
+            }
         });
     }
 

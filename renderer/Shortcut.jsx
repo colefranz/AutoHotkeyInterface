@@ -4,6 +4,7 @@ import ShortcutModel from './models/Shortcut.js';
 import Modifier from './Modifier.jsx';
 import HotkeyCreator from './HotkeyCreator.jsx';
 import AbstractHotkey from './models/hotkeys/AbstractHotkey.js';
+import TextInput from './TextInput.jsx';
 
 class Shortcut extends React.Component {
     handleKeyInputChange = (event) => {
@@ -50,7 +51,6 @@ class Shortcut extends React.Component {
     }
 
     renderShortcutKey() {
-        const placeholder = "Enter a key";
         const shortcut = this.props.shortcut;
         const shortcutKeyModifiers = _.map(this.props.shortcut.modifiers, (modifier, i) => {
             const handleModifierUpdate = (updatedModifier) => {
@@ -69,13 +69,11 @@ class Shortcut extends React.Component {
         return (
             <div className="shortcut-key-container">
                 {shortcutKeyModifiers}
-                <div
+                <TextInput
                     className="shortcut-key button"
-                    onKeyDown={this.handleKeyInputChange}
-                    tabIndex="-1"
-                >
-                    {this.props.shortcut.key || placeholder}
-                </div>
+                    onInput={this.handleKeyInputChange}
+                    value={this.props.shortcut.key}
+                />
             </div>
         );
     }
