@@ -25,6 +25,8 @@ export default class NumberConfigurable extends Configurable {
 
     set randomize(random) {
         this._randomize = random;
+        // I think that maybe this should sort when both inputs are not focused, can't
+        // imagine this will ever feel good as it is
         this._sortValues();
     }
 

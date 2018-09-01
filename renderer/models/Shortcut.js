@@ -21,15 +21,38 @@ class Shortcut {
     static getShortcutsFromText(shortcutsAsText) {
         const lines = shortcutsAsText.split('\n').map((line) => line.trim());
 
+        // essentially a state machine where if we have random numbers then we know to apply
+        // it to the next line and if the currentShortcut is set it means we are looking for
+        // hotkeys or a return
         let shortcuts = [];
         let randomNumbers = null;
         let currentShortcut = null;
-        lines.forEach((line) => {
-            if (!(line.length > 0)) return;
+        const currentShortcutHandlers = [];
+        const noCurrentShortcutHandlers = [];
+
+        function handleReturn(line) {
+            let handled = false;
+            if (line === 'return') {
+                currentShortcut = null;
+                handled = true;
+            }
+
+            return handled;
+        }
+
+        function handleRandom(line) {
+            let handled = false;
             const randomMatch = randomMatcher.exec(line);
             if (randomMatch) {
                 randomNumbers = [randomMatch[1], randomMatch[2]];
+                handled = true;
             }
+
+            return handled;
+        }
+
+        function handleHotkeyCreation(line) {
+            let handled = false;
             const hotkeyToMake = Hotkeys.find((Hotkey) => Hotkey.stringMatches(line));
 
             if (hotkeyToMake) {
@@ -40,14 +63,37 @@ class Shortcut {
                 }
                 currentShortcut.hotkeys.push(hotkey);
                 randomNumbers = null;
+                handled = true;
             }
+            return handled;
+        }
 
-            if (currentShortcut) {
-                if (line === 'return') currentShortcut = null;
-            } else if (line.endsWith('::')) {
+        function handleShortcutCreation(line) {
+            if (line.endsWith('::')) {
                 const shortcutKeyText = line.split('::')[0];
                 currentShortcut = new Shortcut(shortcutKeyText);
                 shortcuts.push(currentShortcut);
+            }
+        }
+
+        function tryHandlersUntilHandled(handlers, line) {
+            handlers.find((handler) => {
+                handler(line);
+            });
+        }
+
+        currentShortcutHandlers.push(handleReturn, handleRandom, handleHotkeyCreation);
+        noCurrentShortcutHandlers.push(handleShortcutCreation);
+
+        lines.forEach((line) => {
+            // return if the line aint got stuff
+            if (!(line.length > 0)) return;
+
+            if (currentShortcut) {
+                // iterate until its been handled
+                tryHandlersUntilHandled(currentShortcutHandlers, line);
+            } else {
+                tryHandlersUntilHandled(noCurrentShortcutHandlers, line);
             }
         });
 
