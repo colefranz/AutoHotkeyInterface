@@ -2,14 +2,14 @@
   "name": "auto-hotkey-interface",
   "version": "1.0.0",
   "description": "Used to generate and edit ahk scripts",
-  "main": "index.js",
   "scripts": {
+    "postinstall": "electron-builder install-app-deps",
     "start": "concurrently \"npm run start:renderer\" \"npm run start:main\"",
     "build": "npm run build:renderer && npm run build:main",
     "start:renderer": "webpack --watch --progress --mode development",
     "build:renderer": "webpack --progress --mode production",
     "start:main": "electron main.js",
-    "build:main": "electron-packager main 'AutoHotkeyInterface' --platform=win32",
+    "build:main": "electron-builder build --win",
     "test": "jest --color",
     "test:watch": "jest --color --watch"
   },
@@ -29,6 +29,7 @@
     "concurrently": "^3.6.1",
     "css-loader": "^1.0.0",
     "electron": "^2.0.7",
+    "electron-builder": "^20.28.3",
     "electron-packager": "^12.1.1",
     "electron-reload": "^1.2.5",
     "enzyme": "^3.4.4",
@@ -53,5 +54,18 @@
     "react-dom": "^16.4.2",
     "react-dropdown": "^1.6.2",
     "react-hot-loader": "^4.3.4"
+  },
+  "main": "./main.js",
+  "build": {
+    "productName": "AutoHotkeyInterface",
+    "files": [
+      "./main.js",
+      "./build/**/*",
+      "./main/**/*",
+      "node_modules"
+    ],
+    "nsis": {
+      "createDesktopShortcut": "always"
+    }
   }
 }

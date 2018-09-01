@@ -6,10 +6,11 @@ module.exports = {
     entry: './renderer/main.jsx',
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: 'main.bundle.js'
+        filename: 'renderer.bundle.js'
     },
     devtool: 'source-map',
     mode: 'development',
+    target: 'electron-renderer',
     module: {
         rules: [
             {

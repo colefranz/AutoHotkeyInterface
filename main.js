@@ -1,8 +1,12 @@
-const { app, BrowserWindow, dialog, ipcMain} = require('electron')
-const fs = require('fs');
+const { app, BrowserWindow, dialog, ipcMain} = require('electron');
 const path = require('path');
-const fileUtils = require('./main/fileUtils.js');
-require('electron-reload')(path.join(__dirname, 'build'));
+const {getFile, writeFile} = require('./main/fileUtils.js');
+
+const isDev = () => {
+    return process.mainModule.filename.indexOf('app.asar') === -1;
+};
+
+if (isDev()) require('electron-reload')(path.join(__dirname, 'build'));
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -10,14 +14,18 @@ let win;
 
 function createWindow() {
     // Create the browser window.
-    win = new BrowserWindow({ width: 800, height: 600, autoHideMenuBar: true })
+    win = new BrowserWindow({
+        width: 800,
+        height: 600,
+        autoHideMenuBar: true
+    });
     win.maximize();
     // and load the index.html of the app.
     // win.loadURL(`http://localhost:8080`)
     win.loadURL(`file://${path.join(__dirname, 'build', 'index.html')}`);
 
     // Open the DevTools.
-    win.webContents.openDevTools()
+    if (isDev()) win.webContents.openDevTools();
 
     // Emitted when the window is closed.
     win.on('closed', () => {
@@ -43,7 +51,7 @@ ipcMain.on('open-dialog', (event) => {
     }, async (filepaths) => {
         if (filepaths && filepaths[0]) {
             const filepath = filepaths[0];
-            const file = await fileUtils.getFile(filepath);
+            const file = await getFile(filepath);
             event.sender.send('open-file', path.basename(filepath) ,file);
         }
     });
@@ -57,7 +65,7 @@ ipcMain.on('save-script', (event, args) => {
         }],
         properties: ['openFile']
     }, async (filepath) => {
-        await fileUtils.writeFile(filepath, args.text);
+        await writeFile(filepath, args.text);
         event.sender.send('saved-script');
     });
 });
