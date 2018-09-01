@@ -22,7 +22,7 @@ export default class SendHotkey extends AbstractHotkey {
     }
 
     static get name() {
-        return 'Key Press';
+        return 'key press';
     }
 
     static get matcher() {

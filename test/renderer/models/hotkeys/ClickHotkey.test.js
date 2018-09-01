@@ -1,4 +1,4 @@
-import ClickHotkey from '../../../renderer/models/hotkeys/ClickHotkey.js';
+import ClickHotkey from '../../../../renderer/models/hotkeys/ClickHotkey.js';
 
 describe('Click hotkey', () => {
     it('should match properly', () => {

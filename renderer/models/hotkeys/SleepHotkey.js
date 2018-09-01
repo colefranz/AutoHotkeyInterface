@@ -34,11 +34,12 @@ export default class SleepHotkey extends AbstractHotkey {
     setFromString(string) {
         const match = SleepHotkey.matcher.exec(string);
         if (match) {
-            this.configurable.value = match[1];
+            this.configurable.values = match[1];
         }
     }
 
     toString() {
+        // all this logic should certainly be in the configurable
         if (this.configurable.randomize) {
             const pieces = [];
             pieces.push(`Random, rand, ${this.configurable.toString()}`);

@@ -1,4 +1,4 @@
-import SendHotkey from '../../../renderer/models/hotkeys/SendHotkey.js';
+import SendHotkey from '../../../../renderer/models/hotkeys/SendHotkey.js';
 
 describe('Send hotkey', () => {
     it('should match properly', () => {

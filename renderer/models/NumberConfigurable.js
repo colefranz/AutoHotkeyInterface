@@ -16,7 +16,8 @@ export default class NumberConfigurable extends Configurable {
     }
 
     set values(values) {
-        this._values = values;
+        values = [].concat(values);
+        this._values = values.map((value) => parseInt(value, 10));
     }
 
     get randomize() {

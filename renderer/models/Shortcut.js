@@ -18,6 +18,15 @@ class Shortcut {
         // maybe should assign a guid for react key
     }
 
+    static getTextFromShortcuts(shortcuts) {
+        const textArray = shortcuts.map((shortcut) => {
+            const string = shortcut.toString();
+            return string;
+        });
+
+        return textArray.join('\n\n');
+    }
+
     static getShortcutsFromText(shortcutsAsText) {
         const lines = shortcutsAsText.split('\n').map((line) => line.trim());
 

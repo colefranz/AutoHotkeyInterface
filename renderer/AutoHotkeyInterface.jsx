@@ -1,6 +1,7 @@
 import React from 'react';
 import { ipcRenderer } from 'electron';
 import Script from './Script.jsx';
+import Shortcut from './models/Shortcut';
 
 export default class AutoHotkeyInterface extends React.Component {
     constructor(props) {
@@ -20,7 +21,10 @@ export default class AutoHotkeyInterface extends React.Component {
     }
 
     startNewScript = () => {
-        this.setState({displayingScript: true});
+        const scriptPath = '';
+        const scriptAsText = '';
+        const displayingScript = true;
+        this.setState({displayingScript, scriptPath, scriptAsText});
     }
 
     stopDisplayingScript = () => {
@@ -28,15 +32,8 @@ export default class AutoHotkeyInterface extends React.Component {
     }
 
     saveScript = (shortcuts, name) => {
-        shortcuts.map((shortcut) => {
-            const string = shortcut.toString();
-            return string;
-        });
-
-        ipcRenderer.send('save-script', {
-            text: shortcuts.join('\n\n'),
-            name
-        });
+        const text = Shortcut.getTextFromShortcuts(shortcuts);
+        ipcRenderer.send('save-script', {text, name});
         this.stopDisplayingScript();
     }
 
