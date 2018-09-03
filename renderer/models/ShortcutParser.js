@@ -70,7 +70,7 @@ export class TextToShortcuts {
     _handleLoop(line) {
         let handled = false;
 
-        const loopMatch = /^Toggle(\d+)/.exec(line);
+        const loopMatch = /^Toggle([^ ]*)/.exec(line);
         if (loopMatch) {
             this.currentShortcut.id = loopMatch[1];
             this.currentShortcut.looping = true;

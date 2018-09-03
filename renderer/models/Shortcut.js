@@ -56,15 +56,23 @@ class Shortcut {
         return `${modifiers}${this.key}::`;
     }
 
+    /**
+     * Given an array which should be set up as [shortcut, body] it will conditionally wrap
+     * the body with a loop and unshift with a max threads command.
+     * @param {arary} shortcutPieces
+     */
     _applyLooping(shortcutPieces) {
         if (this.looping) {
             const toggleString = `Toggle${this.id}`;
+            const loopFrontPieces = [];
+
+            loopFrontPieces.push(`${toggleString} := !${toggleString}`)
+            loopFrontPieces.push('loop');
+            loopFrontPieces.push('{');
+            loopFrontPieces.push(`If not ${toggleString}`);
+            loopFrontPieces.push(`break`);
+            shortcutPieces.splice(1, 0, ...loopFrontPieces);
             shortcutPieces.unshift('#MaxThreadsPerHotkey 2');
-            shortcutPieces.splice(2, 0, `${toggleString} := !${toggleString}`)
-            shortcutPieces.splice(2, 0, 'loop');
-            shortcutPieces.splice(2, 0, '{');
-            shortcutPieces.splice(2, 0, `If not ${toggleString}`);
-            shortcutPieces.splice(2, 0, `break`);
             shortcutPieces.push('}');
         }
     }

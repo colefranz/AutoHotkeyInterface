@@ -11,7 +11,7 @@ class HotkeyCreator extends React.Component {
     }
 
     focusOut = (event) => {
-        if (!this.element.current.contains(event.relatedTarget)) {
+        if (this.element.current && !this.element.current.contains(event.relatedTarget)) {
             this.props.configurable.cleanUp();
             this.props.updateModel(this.props.configurable);
         }
