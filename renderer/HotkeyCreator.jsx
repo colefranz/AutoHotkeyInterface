@@ -7,10 +7,8 @@ import Dropdown from './Dropdown.jsx';
 class HotkeyCreator extends React.Component {
     onSelectHotkeyType = (dropdownObject) => {
         const NewHotkey = dropdownObject.value;
-        const {configurables, id} = this.props.hotkey;
         const newHotkey = new NewHotkey();
-        newHotkey.applyConfigurables(configurables);
-        newHotkey.id = id;
+        this.props.hotkey.copyTo(newHotkey);
         this.props.updateModel(newHotkey);
     }
 

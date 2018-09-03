@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import uuid from 'uuid/v1';
 import Modifier from './Modifier.js';
 
 class Shortcut {
@@ -11,8 +12,9 @@ class Shortcut {
         };
         this.key = '';
         this.hotkeys = [];
+        this.looping = false;
         this.extractShortcutKeys(shortcutKeyText);
-        // maybe should assign a guid for react key
+        this.id = uuid();
     }
 
     // insert hotkey at index

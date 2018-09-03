@@ -5,6 +5,7 @@ import Modifier from './Modifier.jsx';
 import HotkeyCreator from './HotkeyCreator.jsx';
 import AbstractHotkey from './models/hotkeys/AbstractHotkey.js';
 import TextInput from './TextInput.jsx';
+import Toggle from './Toggle.jsx';
 
 class Shortcut extends React.Component {
     handleKeyInputChange = (event) => {
@@ -15,6 +16,12 @@ class Shortcut extends React.Component {
             shortcut.key = newKey.toLowerCase();
             this.props.updateModel(shortcut)
         }
+    }
+
+    handleLoopingToggle = () => {
+        const {shortcut} = this.props;
+        shortcut.looping = !shortcut.looping;
+        this.props.updateModel(shortcut);
     }
 
     startNewHotkey = () => {
@@ -50,6 +57,17 @@ class Shortcut extends React.Component {
         return <div className="hotkey-creators">{hotkeyCreators}</div>;
     }
 
+    renderLoopingToggle() {
+        return (
+            <Toggle
+                label="Repeat"
+                labelTitle="Shortcut will repeat until pressed again"
+                toggle={this.handleLoopingToggle}
+                active={this.props.shortcut.looping}
+            />
+        );
+    }
+
     renderShortcutKey() {
         const shortcut = this.props.shortcut;
         const shortcutKeyModifiers = _.map(this.props.shortcut.modifiers, (modifier, i) => {
@@ -74,6 +92,7 @@ class Shortcut extends React.Component {
                     onInput={this.handleKeyInputChange}
                     value={this.props.shortcut.key}
                 />
+                {this.renderLoopingToggle()}
             </div>
         );
     }

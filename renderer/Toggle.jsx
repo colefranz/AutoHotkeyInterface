@@ -10,7 +10,7 @@ class Toggle extends React.Component {
     render() {
         return (
             <div className={this.toggleClassName()} onClick={this.props.toggle}>
-                <label>{this.props.label}</label>
+                <label title={this.props.labelTitle}>{this.props.label}</label>
                 <div className="toggle-slider">
                     <i className="toggle-ball"></i>
                 </div>
@@ -21,6 +21,7 @@ class Toggle extends React.Component {
 
 Toggle.defaultProps = {
     label: '',
+    labelTitle: '',
     active: false,
     toggle: () => {}
 };

@@ -1,8 +1,6 @@
 import React from 'react';
 import Shortcut from './Shortcut.jsx';
-import ShortcutModel from './models/Shortcut.js';
 import ScriptModel from './models/Script.js';
-import {ShortcutsToText, TextToShortcuts} from './models/ShortcutParser.js';
 
 export default class Script extends React.Component {
     constructor(props) {
@@ -48,7 +46,11 @@ export default class Script extends React.Component {
                 this.setState({script: this.state.script});
             };
 
-            return <Shortcut key={i} updateModel={handleShortcutUpdate} shortcut={shortcut} />
+            return <Shortcut
+                key={shortcut.id}
+                updateModel={handleShortcutUpdate}
+                shortcut={shortcut}
+            />;
         });
 
         // this key will break in no time, need a better key
