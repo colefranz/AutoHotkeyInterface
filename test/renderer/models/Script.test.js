@@ -1,9 +1,10 @@
-import Shortcut from '../../../renderer/models/Shortcut.js';
+import Script from '../../../renderer/models/Script.js';
 import sampleFile from '../../lib/sampleFile.js';
 
 describe('Shortcut', () => {
     it('creates shortcuts from text', () => {
-        const shortcuts = Shortcut.getShortcutsFromText(sampleFile);
+        const script = new Script(sampleFile);
+        const shortcuts = script.shortcuts;
         expect(shortcuts.length).toBe(2);
         const firstShortcut = shortcuts[0];
         expect(firstShortcut.hotkeys.length).toBe(4);
@@ -24,7 +25,8 @@ describe('Shortcut', () => {
     });
 
     it('recreates the same text from shortcuts', () => {
-        const shortcuts = Shortcut.getShortcutsFromText(sampleFile);
+        const script = new Script(sampleFile);
+        const shortcuts = script.shortcuts;
         expect(shortcuts.length).toBe(2);
         const firstShortcut = shortcuts[0];
         expect(firstShortcut.hotkeys.length).toBe(4);
@@ -43,7 +45,7 @@ describe('Shortcut', () => {
         expect(secondShortcut.hotkeys[1].constructor.name).toBe('key press');
         expect(secondShortcut.hotkeys[1].configurable.values).toEqual(['3']);
 
-        const textFromShortcuts = Shortcut.getTextFromShortcuts(shortcuts);
+        const textFromShortcuts = script.shortcutsAsText;
         expect(textFromShortcuts).toBe(sampleFile);
     });
 });

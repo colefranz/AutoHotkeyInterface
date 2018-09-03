@@ -1,29 +1,21 @@
 import React from 'react';
 import Shortcut from './Shortcut.jsx';
 import ShortcutModel from './models/Shortcut.js';
+import ScriptModel from './models/Script.js';
+import {ShortcutsToText, TextToShortcuts} from './models/ShortcutParser.js';
 
 export default class Script extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            shortcuts: []
+            script: new ScriptModel(props.shortcutsAsText, props.filepath)
         };
     }
 
-    componentWillMount() {
-        this.setShortcutsFromProps(this.props);
-    }
-
     componentWillReceiveProps(nextProps) {
-        this.setShortcutsFromProps(nextProps);
-    }
-
-    setShortcutsFromProps(props) {
-        if (props.shortcutsAsText) {
-            const shortcuts = ShortcutModel.getShortcutsFromText(props.shortcutsAsText);
-            this.setState({shortcuts});
-        }
-        this.setState({filepath: props.filepath});
+        this.setState({
+            script: new ScriptModel(nextProps.shortcutsAsText, nextProps.filepath)
+        });
     }
 
     cancel = () => {
@@ -32,16 +24,12 @@ export default class Script extends React.Component {
     }
 
     save = () => {
-        this.props.onSave(this.state.shortcuts, this.state.filepath);
+        this.props.onSave(this.state.script);
     }
 
     addShortcut = () => {
-        // TODO are you sure???
-        this.setState(({shortcuts}) => {
-            shortcuts.push(new ShortcutModel());
-
-            return {shortcuts};
-        });
+        this.state.script.addShortcut();
+        this.setState({script: this.state.script});
     }
 
     renderExitingActions() {
@@ -54,13 +42,10 @@ export default class Script extends React.Component {
     }
 
     renderShortcuts() {
-        const shortcuts = this.state.shortcuts.map((shortcut, i) => {
+        const shortcuts = this.state.script.shortcuts.map((shortcut, i) => {
             const handleShortcutUpdate = (updatedShortcut) => {
-                this.setState(({shortcuts}) => {
-                    shortcuts[i] = updatedShortcut;
-
-                    return {shortcuts};
-                });
+                this.state.script.shortcuts[i] = updatedShortcut;
+                this.setState({script: this.state.script});
             };
 
             return <Shortcut key={i} updateModel={handleShortcutUpdate} shortcut={shortcut} />
@@ -85,7 +70,6 @@ export default class Script extends React.Component {
     }
 
     render() {
-        // var filename = this.state.filepath.replace(/^.*[\\\/]/, '')
         return (
             <div className="script">
                 <div className="script-body">
