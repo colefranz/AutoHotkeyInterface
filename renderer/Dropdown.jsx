@@ -6,6 +6,25 @@ class Dropdown extends React.Component {
         this.state = {
             open: false
         };
+        this.element = React.createRef();
+    }
+
+    componentDidMount() {
+        document.addEventListener('click', this.handleDocumentClick);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.handleDocumentClick);
+    }
+
+    handleDocumentClick = (event) => {
+        if (!this.element.current.contains(event.target)) {
+            this.closeDropdown();
+        }
+    }
+
+    closeDropdown() {
+        this.setState({open: false});
     }
 
     toggleOpen = () => {
@@ -47,7 +66,7 @@ class Dropdown extends React.Component {
 
     render() {
         return (
-            <div className={this.dropdownClassName()}>
+            <div className={this.dropdownClassName()} ref={this.element}>
                 <div className="dropdown-control dropdown-option" onClick={this.toggleOpen}>
                     <span>
                         {this.props.value ? this.props.value.label : this.props.placeholder}
