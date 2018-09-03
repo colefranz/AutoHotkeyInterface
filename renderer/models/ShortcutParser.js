@@ -1,8 +1,6 @@
 import Hotkeys from './hotkeys/Hotkeys.js';
 import Shortcut from './Shortcut.js';
 
-const randomMatcher = /^Random, rand, (\d+), (\d+)$/;
-
 export class ShortcutsToText {
     getText(shortcuts) {
         const textArray = shortcuts.map((shortcut) => {
@@ -43,7 +41,7 @@ export class TextToShortcuts {
 
     _handleRandom(line) {
         let handled = false;
-        const randomMatch = randomMatcher.exec(line);
+        const randomMatch = /^Random, rand, (\d+), (\d+)$/.exec(line);
         if (randomMatch) {
             this.currentRandomNumbers = [randomMatch[1], randomMatch[2]];
             handled = true;
@@ -69,6 +67,20 @@ export class TextToShortcuts {
         return handled;
     }
 
+    _handleLoop(line) {
+        let handled = false;
+
+        const loopMatch = /^Toggle(\d+)/.exec(line);
+        if (loopMatch) {
+            this.currentShortcut.id = loopMatch[1];
+            this.currentShortcut.looping = true;
+            handled = true;
+        }
+
+        return handled;
+    }
+
+
     _handleShortcutCreation(line) {
         if (line.endsWith('::')) {
             const shortcutKeyText = line.split('::')[0];
@@ -76,13 +88,12 @@ export class TextToShortcuts {
             this.shortcuts.push(this.currentShortcut);
         }
     }
-
     _handleLine(line) {
         if (!(line.length > 0)) return;
 
         let handlers = [];
         if (this.currentShortcut) {
-            handlers.push(this._handleReturn, this._handleRandom, this._handleHotkeyCreation);
+            handlers.push(this._handleReturn, this._handleRandom, this._handleLoop, this._handleHotkeyCreation);
         } else {
             handlers.push(this._handleShortcutCreation);
         }

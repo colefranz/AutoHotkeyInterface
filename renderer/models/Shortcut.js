@@ -14,7 +14,7 @@ class Shortcut {
         this.hotkeys = [];
         this.looping = false;
         this.extractShortcutKeys(shortcutKeyText);
-        this.id = uuid();
+        this.id = uuid().replace(/-/g, '');
     }
 
     // insert hotkey at index
@@ -43,6 +43,7 @@ class Shortcut {
         let pieces = [];
         pieces.push(this.shortcutKeyToString());
         pieces = pieces.concat(this.hotkeys.map((hotkey) => hotkey.toString()));
+        this._applyLooping(pieces);
         pieces.push('return');
         return pieces.join('\n');
     }
@@ -53,6 +54,19 @@ class Shortcut {
         }, '');
 
         return `${modifiers}${this.key}::`;
+    }
+
+    _applyLooping(shortcutPieces) {
+        if (this.looping) {
+            const toggleString = `Toggle${this.id}`;
+            shortcutPieces.unshift('#MaxThreadsPerHotkey 2');
+            shortcutPieces.splice(2, 0, `${toggleString} := !${toggleString}`)
+            shortcutPieces.splice(2, 0, 'loop');
+            shortcutPieces.splice(2, 0, '{');
+            shortcutPieces.splice(2, 0, `If not ${toggleString}`);
+            shortcutPieces.splice(2, 0, `break`);
+            shortcutPieces.push('}');
+        }
     }
 }
 

@@ -36,7 +36,7 @@ export default class NumberConfigurable extends Configurable {
     updateValue(index, event) {
         const value = event.target.value;
         const valueAsNumber = parseInt(value, 10);
-        if (Number.isNaN(valueAsNumber)) {
+        if (!Number.isNaN(valueAsNumber)) {
             this._values[index] = valueAsNumber > 0 ? valueAsNumber : 0;
         }
     }
