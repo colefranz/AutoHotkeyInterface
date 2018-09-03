@@ -1,21 +1,9 @@
 import Shortcut from '../../../renderer/models/Shortcut.js';
-const SHORTCUTS_TEXT =
-`!#d::
-Random, rand, 1, 3
-Sleep, %rand%
-Click
-Sleep, 5
-Send {Enter}
-return
-
-+f::
-Click, right
-Send 3
-return`;
+import sampleFile from '../../lib/sampleFile.js';
 
 describe('Shortcut', () => {
     it('creates shortcuts from text', () => {
-        const shortcuts = Shortcut.getShortcutsFromText(SHORTCUTS_TEXT);
+        const shortcuts = Shortcut.getShortcutsFromText(sampleFile);
         expect(shortcuts.length).toBe(2);
         const firstShortcut = shortcuts[0];
         expect(firstShortcut.hotkeys.length).toBe(4);
@@ -36,7 +24,7 @@ describe('Shortcut', () => {
     });
 
     it('recreates the same text from shortcuts', () => {
-        const shortcuts = Shortcut.getShortcutsFromText(SHORTCUTS_TEXT);
+        const shortcuts = Shortcut.getShortcutsFromText(sampleFile);
         expect(shortcuts.length).toBe(2);
         const firstShortcut = shortcuts[0];
         expect(firstShortcut.hotkeys.length).toBe(4);
@@ -56,6 +44,6 @@ describe('Shortcut', () => {
         expect(secondShortcut.hotkeys[1].configurable.values).toEqual(['3']);
 
         const textFromShortcuts = Shortcut.getTextFromShortcuts(shortcuts);
-        expect(textFromShortcuts).toBe(SHORTCUTS_TEXT);
+        expect(textFromShortcuts).toBe(sampleFile);
     });
 });
