@@ -25,15 +25,6 @@ input {
     }
 }
 
-hr {
-    border: 0;
-    clear:both;
-    display:block;
-    width: 96%;
-    background-color: @accent;
-    height: 1px;
-}
-
 html, body {
     position: absolute;
     top: 0;
@@ -77,12 +68,6 @@ input, .button, .selector, .dropdown-option {
     font-size: 16px;
     line-height: 16px;
     height: 48px;
-    /*background: @light;
-    transition: background-color 0.2s ease, color 0.1s ease;
-    &:hover {
-        background: @primary;
-        color: @light;
-    }*/
 }
 
 .script {
@@ -100,6 +85,15 @@ input, .button, .selector, .dropdown-option {
     .footer {
         order: 3;
         align-self: center;
+    }
+}
+
+.shortcut {
+    padding: 8px 0px;
+    border-bottom: 1px solid @secondary;
+    transition: background-color 0.1s ease;
+    &:hover {
+        background: darken(@light, 6%);
     }
 }
 
@@ -134,11 +128,11 @@ input, .button, .selector, .dropdown-option {
 .selector {
     display: inline-block;
     cursor: pointer;
-    border: 1px solid @accent;
+    border: 1px solid @primary;
     border-left: none;
 
     &:first-child {
-        border-left: 1px solid @accent
+        border-left: 1px solid @primary
     }
 
     &.active {
@@ -152,7 +146,7 @@ input, .button, .selector, .dropdown-option {
 
 .hotkey-creator {
     display: flex;
-    margin: 5px 0px;
+    margin: 8px 0px;
 
     input[type="number"] {
         width: 80px;
@@ -161,6 +155,10 @@ input, .button, .selector, .dropdown-option {
     .hotkey-creation-actions {
         order: -1;
     }
+}
+
+.actions {
+    padding: 8px 0px;
 }
 
 .configurable {

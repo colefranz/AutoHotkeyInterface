@@ -112,7 +112,6 @@ class Shortcut extends React.Component {
                 {this.renderShortcutKey()}
                 {this.renderHotkeys()}
                 {this.renderAddHotkey()}
-                <hr />
             </div>
         );
     }

@@ -59,7 +59,6 @@ export default class AutoHotkeyInterface extends React.Component {
             <div id="auto-hotkey-interface">
                 <h1>autohotkey</h1>
                 <h2>interface</h2>
-                <hr />
                 {this.state.displayingScript ? this.renderScript() : this.renderActions()}
             </div>
         );
