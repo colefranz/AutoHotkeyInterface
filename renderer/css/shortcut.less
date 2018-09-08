@@ -1,0 +1,40 @@
+.shortcut {
+    padding: 15px;
+    border-bottom: 1px solid @secondary;
+    transition: background-color 0.1s ease;
+    &:hover {
+        background: darken(@light, 6%);
+    }
+
+    .shortcut-key-container {
+        display: flex;
+        margin: 3px;
+    }
+
+    .shortcut-key {
+        display: inline-block;
+        width: 150px;
+        margin: 0px 5px;
+        text-align: center;
+        cursor: pointer;
+        border: 1px solid @dark;
+        text-transform: capitalize;
+
+        &:focus, &:active {
+            outline: none;
+            border: 1px solid @primary;
+        }
+    }
+    .hotkey-creator {
+        display: flex;
+        margin: 8px 0px;
+
+        input[type="number"] {
+            width: 80px;
+        }
+
+        .hotkey-creation-actions {
+            order: -1;
+        }
+    }
+}
