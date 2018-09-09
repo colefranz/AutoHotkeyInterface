@@ -1,4 +1,5 @@
 import React from 'react';
+import DownIcon from '!svg-react-loader?name=DownIcon!./svg/down.svg';
 
 class Dropdown extends React.Component {
     constructor() {
@@ -71,6 +72,7 @@ class Dropdown extends React.Component {
                     <span>
                         {this.props.value ? this.props.value.label : this.props.placeholder}
                     </span>
+                    <DownIcon />
                 </div>
                 {this.renderDropdownOptions()}
             </div>
