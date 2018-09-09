@@ -3,6 +3,7 @@ import AbstractHotkey from './models/hotkeys/AbstractHotkey.js';
 import hotkeys from './models/hotkeys/Hotkeys.js';
 import Configurable from './Configurable.jsx';
 import Dropdown from './Dropdown.jsx';
+import DeleteIcon from '!svg-react-loader?name=DeleteIcon!./svg/close.svg';
 
 class HotkeyCreator extends React.Component {
     onSelectHotkeyType = (dropdownObject) => {
@@ -50,8 +51,10 @@ class HotkeyCreator extends React.Component {
 
     renderActions() {
         return (
-            <div className="hotkey-creation-actions">
-                <div className="button" onClick={this.props.onDelete}>x</div>
+            <div className="hotkey-actions">
+                <div className="button" onClick={this.props.onDelete}>
+                    <DeleteIcon className="icon" />
+                </div>
             </div>
         );
     }
