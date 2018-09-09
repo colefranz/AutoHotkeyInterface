@@ -65,8 +65,12 @@
       "./main/**/*",
       "node_modules"
     ],
+    "win": {
+        "icon": "./assets/icons/icon.ico"
+    },
     "nsis": {
-      "createDesktopShortcut": "always"
+      "createDesktopShortcut": "always",
+      "installerIcon": "./assets/icons/icon.ico"
     }
   }
 }

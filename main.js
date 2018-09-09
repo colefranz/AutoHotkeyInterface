@@ -17,7 +17,11 @@ function createWindow() {
     win = new BrowserWindow({
         width: 800,
         height: 600,
-        autoHideMenuBar: true
+        minWidth: 800,
+        mindHeight: 600,
+        autoHideMenuBar: true,
+        icon: path.join(__dirname, 'assets/icons/64x64.png'),
+        backgroundColor: '#46494C'
     });
     win.maximize();
     // and load the index.html of the app.
